@@ -1,7 +1,7 @@
 // pages/admin.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { db } from "@/app/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
@@ -26,10 +26,12 @@ export default function Admin() {
     }, []);
 
     return (
-        <div style={{ padding: "30px", fontFamily: "sans-serif" }}>
-            <h1>Confirmações</h1>
-            <p>✅ Sim: {stats.sim}</p>
-            <p>❌ Não: {stats.nao}</p>
-        </div>
+        <Suspense fallback={<div className="text-white text-xl">Carregando...</div>}>
+            <div style={{ padding: "30px", fontFamily: "sans-serif" }}>
+                <h1>Confirmações</h1>
+                <p>✅ Sim: {stats.sim}</p>
+                <p>❌ Não: {stats.nao}</p>
+            </div>
+        </Suspense>
     );
 }
